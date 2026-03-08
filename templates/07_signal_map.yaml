@@ -1,0 +1,148 @@
+# Organizational Schema Theory -- Module 7: Signal Map Output Template
+# Version: 1.0
+#
+# This template structures the output of bottom-up signal mapping.
+# AI should fill this structure when running Module 7.
+#
+# Signal mapping reverses the cascade direction: instead of top-down
+# (perception to operations), it maps bottom-up (operations to perception).
+# Each operational parameter from Modules 3-6 is examined for the brand
+# signals it emits -- whether designed, ambient, or unintended.
+#
+# Frameworks referenced:
+#   - SBT signal decomposition (Zharnikov, 2026a) -- 8 perceptual dimensions
+#   - Service-Dominant Logic (Vargo and Lusch, 2004) -- value co-created in use
+
+business:
+  name: "Spectra Coffee"                    # Business being specified
+  category: "Specialty coffee bar"          # Industry/category
+  location: "Berlin, Germany"               # Primary operating location
+  analysis_date: "2026-03-08"
+
+# --- Signal Map ---
+# Each entry maps one operational parameter to the SBT dimension it activates.
+# Source uses dotted path notation referencing the upstream module output
+# (e.g., L4_espresso_beans.origin refers to the origin field of the
+# L4_espresso_beans input specification).
+#
+# Emission types:
+#   - designed: signal was specified in Module 2 and this parameter produces it
+#   - ambient: signal emerges from operations but was not specified in Module 2
+#   - unintended: signal contradicts an L0 experience contract
+#
+# The contradicts field is required when emission is "unintended".
+
+signal_map:
+
+  - source: L4_espresso_beans.origin        # Dotted path to operational parameter
+    value: "Ethiopia Yirgacheffe"           # The parameter value that emits the signal
+    dimension: narrative                    # SBT dimension activated
+    emission: designed                      # designed | ambient | unintended
+    description: "Single-origin story creates craft narrative at point of sale"
+
+  - source: L4_espresso_beans.cost_per_serving
+    value: "0.45 EUR"
+    dimension: economic
+    emission: ambient
+    description: "Premium ingredient cost reflects in menu pricing, signaling quality tier"
+
+  - source: L3_espresso_extraction.active_executor
+    value: "human"
+    dimension: experiential
+    emission: designed
+    description: "Visible human craft signals artisanal quality to customers at the bar"
+
+  - source: L5_coffee_supplier.certifications
+    value: "direct_trade"
+    dimension: ideological
+    emission: designed
+    description: "Ethical sourcing commitment visible through origin cards and menu notes"
+
+  - source: L2_espresso_extraction.failure_action
+    value: "discard shot"
+    dimension: economic
+    emission: unintended
+    description: "Waste cost may pressure quality shortcuts under high-volume conditions"
+    contradicts: L0_sustainability_commitment  # L0 contract ID that this signal undermines
+
+  # --- Template for additional signal map entries ---
+  # Copy this block for each operational parameter that emits a signal:
+  #
+  # - source: "[level]_[parameter_path]"    # Dotted path to operational parameter
+  #   value: "[parameter_value]"            # The value that produces the signal
+  #   dimension: [sbt_dimension]            # semiotic | narrative | ideological |
+  #                                         # experiential | social | economic |
+  #                                         # cultural | temporal
+  #   emission: [type]                      # designed | ambient | unintended
+  #   description: "[how and why this parameter emits a brand signal]"
+  #   contradicts: [L0_contract_id]         # Required when emission is "unintended"
+
+# --- Summary ---
+# Aggregate analysis of the signal map.
+
+summary:
+
+  # Per-dimension breakdown of signal counts by emission type.
+  dimension_coverage:
+    - dimension: semiotic
+      signal_count: 3
+      designed_count: 2
+      ambient_count: 1
+      unintended_count: 0
+    - dimension: narrative
+      signal_count: 3
+      designed_count: 3
+      ambient_count: 0
+      unintended_count: 0
+    - dimension: ideological
+      signal_count: 2
+      designed_count: 2
+      ambient_count: 0
+      unintended_count: 0
+    - dimension: experiential
+      signal_count: 6
+      designed_count: 4
+      ambient_count: 2
+      unintended_count: 0
+    - dimension: social
+      signal_count: 2
+      designed_count: 1
+      ambient_count: 1
+      unintended_count: 0
+    - dimension: economic
+      signal_count: 4
+      designed_count: 1
+      ambient_count: 2
+      unintended_count: 1
+    - dimension: cultural
+      signal_count: 1
+      designed_count: 0
+      ambient_count: 1
+      unintended_count: 0
+    - dimension: temporal
+      signal_count: 0
+      designed_count: 0
+      ambient_count: 0
+      unintended_count: 0
+
+  # Ratio of designed signals to total signals.
+  # High ratio = tight operational control over brand perception.
+  # Low ratio = brand experience is largely emergent and uncontrolled.
+  designed_ambient_ratio: 0.65              # designed / (designed + ambient + unintended)
+
+  # Dimensions with no operational signal source.
+  # These are gaps where the business intends to emit (per Module 2)
+  # but no operational parameter actually produces the signal.
+  signal_gaps:
+    - dimension: temporal
+      reason: "No operational parameter emits a temporal signal despite L1_seasonal_rotation requiring one"
+
+  # Signals classified as unintended that contradict L0 contracts.
+  # These are priority items for remediation.
+  contradictions:
+    - source: L2_espresso_extraction.failure_action
+      value: "discard shot"
+      dimension: economic
+      contradicts: L0_sustainability_commitment
+      description: "Waste disposal conflicts with stated environmental values"
+      recommendation: "Add recovery procedure for failed shots (e.g., use in iced drinks, staff beverages) or revise L0 commitment scope"

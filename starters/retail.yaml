@@ -1,0 +1,131 @@
+# Organizational Schema Theory -- Industry Starter Pack: Retail
+# Version: 1.0
+#
+# Pre-filled L0 experience contracts for physical retail businesses
+# (shops, boutiques, showrooms).
+
+business:
+  name: "[YOUR BUSINESS NAME]"
+  category: "Retail"
+  location: "[CITY, COUNTRY]"
+  analysis_date: "[DATE]"
+
+experience_contracts:
+
+  # --- Experience contracts ---
+
+  - id: L0_product_availability
+    type: experience
+    description: >
+      Advertised products are in stock and findable. Out-of-stock
+      items are clearly communicated with restock timelines.
+    proxy_indicators:
+      - metric: "in_stock_rate_pct"
+        target: ">= 95"
+        measurement_method: "Daily inventory check against catalog"
+    priority: critical
+
+  - id: L0_store_experience
+    type: experience
+    description: >
+      Store layout, lighting, cleanliness, and merchandising create
+      a pleasant shopping experience aligned with brand positioning.
+    proxy_indicators:
+      - metric: "store_condition_score"
+        target: ">= 4 / 5"
+        measurement_method: "Weekly visual audit checklist"
+    priority: high
+
+  - id: L0_staff_helpfulness
+    type: experience
+    description: >
+      Staff are approachable, knowledgeable about products, and able
+      to assist without being intrusive.
+    proxy_indicators:
+      - metric: "mystery_shopper_score"
+        target: ">= 4 / 5"
+        measurement_method: "Quarterly mystery shopper program"
+    priority: high
+
+  - id: L0_checkout_efficiency
+    type: experience
+    description: >
+      Checkout process is fast, accurate, and offers expected
+      payment methods.
+    proxy_indicators:
+      - metric: "checkout_time_s"
+        target: "<= 120"
+        measurement_method: "POS transaction timing"
+    priority: high
+
+  - id: L0_return_experience
+    type: experience
+    description: >
+      Returns and exchanges are handled smoothly per published policy.
+      Customer leaves satisfied even when returning a product.
+    proxy_indicators:
+      - metric: "return_resolution_time_min"
+        target: "<= 10"
+        measurement_method: "Return transaction log"
+    priority: medium
+
+  - id: L0_product_information
+    type: experience
+    description: >
+      Products have clear pricing, specifications, and origin
+      information accessible in-store and online.
+    proxy_indicators:
+      - metric: "label_accuracy_pct"
+        target: "100"
+        measurement_method: "Monthly price/label audit"
+    priority: high
+
+  # --- Constraint contracts ---
+
+  - id: L0_consumer_protection
+    type: constraint
+    source: "Consumer protection law (e.g., EU Consumer Rights Directive)"
+    description: >
+      Pricing is transparent, return rights are honored, and
+      advertising is truthful.
+    priority: critical
+
+  - id: L0_data_privacy
+    type: constraint
+    source: "GDPR or local data protection law"
+    description: >
+      Customer data (loyalty programs, purchase history, contact info)
+      handled per applicable data protection regulations.
+    priority: critical
+
+  - id: L0_accessibility
+    type: constraint
+    source: "Local accessibility regulations"
+    description: >
+      Store is accessible to customers with disabilities. Signage,
+      aisles, and facilities meet regulatory requirements.
+    priority: critical
+
+  # --- Commitment contracts ---
+
+  - id: L0_sustainable_packaging
+    type: commitment
+    description: >
+      Packaging materials are recyclable, compostable, or reusable.
+      Single-use plastic eliminated where alternatives exist.
+    proxy_indicators:
+      - metric: "sustainable_packaging_pct"
+        target: ">= 90"
+        measurement_method: "Quarterly packaging audit"
+    priority: medium
+
+  - id: L0_local_sourcing
+    type: commitment
+    description: >
+      Preference given to local suppliers and artisans where product
+      quality and availability permit.
+    proxy_indicators:
+      - metric: "local_supplier_pct"
+        target: ">= 30"
+        measurement_method: "Supplier origin audit"
+    priority: medium

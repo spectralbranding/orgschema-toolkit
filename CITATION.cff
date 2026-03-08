@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this toolkit, please cite it as below."
+authors:
+  - family-names: Zharnikov
+    given-names: Dmitry
+    email: dmitry@spectralbranding.com
+title: "Organizational Schema Theory: AI Prompt Toolkit"
+version: 1.0.0
+date-released: 2026-03-08
+url: "https://github.com/spectralbranding/orgschema-toolkit"
+keywords:
+  - business specification
+  - organizational schema theory
+  - test-driven development
+  - prompt engineering
+  - operational design
+  - AI-native
+license: MIT
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Zharnikov
+      given-names: Dmitry
+      email: dmitry@spectralbranding.com
+  title: "The Organizational Schema Theory: Test-Driven Business Design"
+  year: 2026
+  url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6323456"

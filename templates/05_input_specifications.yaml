@@ -1,0 +1,271 @@
+# Organizational Schema Theory — Module 5: Input Specifications Output Template
+# Version: 1.0
+#
+# This template structures the output of input specification (L4).
+# AI should fill this structure when running Module 5.
+#
+# Input specifications define the materials, equipment, and capabilities
+# each procedure requires -- the operational Bill of Materials.
+# Every input links to one or more L3 procedures via requires_input.
+#
+# Frameworks referenced:
+#   - Bill of Materials (MRP/ERP) — structured input decomposition per unit
+#   - Supply Chain Management (Chopra and Meindl, 2019) — demand-driven planning
+#   - ISO 22000 — food safety traceability from source to serving
+
+business:
+  name: "Spectra Coffee"                    # Business being specified
+  category: "Specialty coffee bar"          # Industry/category
+  location: "Berlin, Germany"               # Primary operating location
+  analysis_date: "2026-03-08"
+
+# --- Input Specifications ---
+# Each input belongs to one of three types:
+#   material   — consumable raw materials (tracked per serving/unit)
+#   equipment  — durable tools/machines (tracked by maintenance cycle)
+#   capability — human skills/certifications (tracked by renewal period)
+#
+# Every input MUST link to at least one L3 procedure via requires_input.
+# Specifications use SI units where applicable (g, ml, s, C, bar).
+# Cost tracking: cost_per_serving for materials, cost for equipment/capabilities.
+
+input_specifications:
+
+  # --- Material Inputs ---
+
+  - id: L4_espresso_beans
+    type: material
+    requires_input:                         # Array of L3 procedure IDs
+      - L3_espresso_extraction_procedure
+    specifications:
+      origin:
+        value: "single origin"
+        description: "Minimum 1400m elevation, traceable farm or cooperative"
+      roast_date_max_days:
+        max: 21                             # Days since roast at time of use
+        description: "Beans used within 21 days of roast date"
+      grind_size_microns:
+        min: 200                            # Adjusted per bean and humidity
+        max: 300
+        description: "Particle size for espresso extraction"
+      moisture_content_pct:
+        min: 10
+        max: 12
+        description: "Green bean moisture before roasting"
+    cost_per_serving:
+      amount: 0.45                          # Cost per single serving
+      currency: "EUR"                       # ISO 4217
+      per_unit: "18g dose"                  # What one serving consists of
+    storage_requirements:
+      temperature_c:
+        min: 18
+        max: 22
+      humidity_pct:
+        max: 60
+      notes: "Airtight container, away from direct light and heat sources"
+    executor_sensitive: false               # Same beans regardless of executor
+
+  - id: L4_milk_whole
+    type: material
+    requires_input:
+      - L3_milk_steaming_procedure
+    specifications:
+      fat_content_pct:
+        min: 3.5
+        max: 4.0
+        description: "Full-fat milk for optimal microfoam"
+      protein_content_pct:
+        min: 3.2
+        description: "Minimum protein for stable foam structure"
+      temperature_c_storage:
+        min: 2
+        max: 4
+        description: "Refrigerated storage temperature"
+    cost_per_serving:
+      amount: 0.12
+      currency: "EUR"
+      per_unit: "150ml"
+    storage_requirements:
+      temperature_c:
+        min: 2
+        max: 4
+      notes: "Refrigerated, use within 5 days of opening"
+    executor_sensitive: false
+
+  # --- Equipment Inputs ---
+
+  - id: L4_espresso_machine
+    type: equipment
+    requires_input:
+      - L3_espresso_extraction_procedure
+    specifications:
+      machine_type:
+        value: "commercial lever or semi-automatic"
+        description: "Must support pressure profiling"
+      boiler_pressure_bar:
+        min: 8.5
+        max: 9.5
+        description: "Stable brew pressure during extraction"
+      boiler_type:
+        value: "dual boiler or heat exchanger"
+        description: "Independent brew and steam temperature control"
+      group_heads:
+        min: 2
+        description: "Minimum number of group heads for service volume"
+    cost:
+      purchase_amount: 8500                 # One-time purchase cost
+      service_amount: 350                   # Per-service cost
+      currency: "EUR"
+    maintenance_interval: "3 months full service, daily backflush, weekly group gasket inspection"
+    executor_sensitive: true                # Automated profile may use different machine type
+
+  - id: L4_grinder
+    type: equipment
+    requires_input:
+      - L3_espresso_extraction_procedure
+    specifications:
+      burr_type:
+        value: "flat or conical, minimum 64mm diameter"
+        description: "Commercial-grade burrs for consistent particle size"
+      grind_retention_g:
+        max: 2.0
+        description: "Maximum grounds retained between doses"
+      dosing_accuracy_g:
+        min: -0.3
+        max: 0.3
+        description: "Deviation from target dose weight"
+    cost:
+      purchase_amount: 2200
+      currency: "EUR"
+    maintenance_interval: "6 months burr replacement assessment, weekly cleaning"
+    executor_sensitive: false
+
+  - id: L4_steam_pitcher
+    type: equipment
+    requires_input:
+      - L3_milk_steaming_procedure
+    specifications:
+      material:
+        value: "stainless steel"
+        description: "Food-grade stainless steel"
+      capacity_ml:
+        min: 350
+        max: 600
+        description: "Pitcher size for single and double servings"
+      spout_type:
+        value: "pointed"
+        description: "Precision spout for latte art"
+    cost:
+      purchase_amount: 35
+      currency: "EUR"
+    maintenance_interval: "Replace when dented or spout deformed"
+    executor_sensitive: false
+
+  # --- Capability Inputs ---
+
+  - id: L4_barista_certification
+    type: capability
+    requires_input:
+      - L3_espresso_extraction_procedure
+      - L3_milk_steaming_procedure
+    specifications:
+      certification_type:
+        value: "basic_barista_certification"
+        description: "SCA Foundation Barista or equivalent"
+      training_hours:
+        min: 16
+        description: "Minimum combined classroom and practical hours"
+      verification_method:
+        value: "practical_exam"
+        description: "Observed espresso extraction and milk steaming"
+      skills_assessed:
+        value: ["extraction", "milk_steaming", "grinder_calibration", "machine_maintenance"]
+        description: "Core competencies evaluated during certification"
+    cost:
+      amount: 250                           # Per-certification cost
+      currency: "EUR"
+    renewal_period: "12 months"
+    executor_sensitive: true                # Not required for fully automated executor profiles
+
+  - id: L4_food_safety_training
+    type: capability
+    requires_input:
+      - L3_espresso_extraction_procedure
+      - L3_milk_steaming_procedure
+      - L3_allergen_management_procedure
+    specifications:
+      certification_type:
+        value: "food_hygiene_certificate"
+        description: "German Gesundheitszeugnis or IHK food safety certification"
+      training_hours:
+        min: 8
+        description: "Minimum training hours for certification"
+      verification_method:
+        value: "written_exam"
+        description: "Standardized food safety knowledge test"
+    cost:
+      amount: 50
+      currency: "EUR"
+    renewal_period: "24 months"
+    executor_sensitive: false               # Required regardless of executor type (regulatory)
+
+  # --- Template for additional inputs ---
+  # Copy the appropriate block for each new input:
+  #
+  # Material:
+  # - id: L4_[snake_case_name]
+  #   type: material
+  #   requires_input:
+  #     - L3_[procedure_id]
+  #   specifications:
+  #     [parameter_name]:
+  #       min: [number]                     # Omit if not applicable
+  #       max: [number]                     # Omit if not applicable
+  #       value: "[string or list]"         # For categorical specs
+  #       description: "[what this measures]"
+  #   cost_per_serving:
+  #     amount: [number]
+  #     currency: "EUR"
+  #     per_unit: "[serving description]"
+  #   storage_requirements:                 # Optional
+  #     temperature_c: { min: [n], max: [n] }
+  #     notes: "[storage notes]"
+  #   executor_sensitive: false
+  #
+  # Equipment:
+  # - id: L4_[snake_case_name]
+  #   type: equipment
+  #   requires_input:
+  #     - L3_[procedure_id]
+  #   specifications:
+  #     [parameter_name]:
+  #       min: [number]
+  #       max: [number]
+  #       value: "[string]"
+  #       description: "[what this measures]"
+  #   cost:
+  #     purchase_amount: [number]
+  #     currency: "EUR"
+  #   maintenance_interval: "[period and activities]"
+  #   executor_sensitive: false
+  #
+  # Capability:
+  # - id: L4_[snake_case_name]
+  #   type: capability
+  #   requires_input:
+  #     - L3_[procedure_id]
+  #   specifications:
+  #     certification_type:
+  #       value: "[certification name]"
+  #       description: "[issuing body or standard]"
+  #     training_hours:
+  #       min: [number]
+  #       description: "[training format]"
+  #     verification_method:
+  #       value: "[exam type]"
+  #       description: "[how competency is verified]"
+  #   cost:
+  #     amount: [number]
+  #     currency: "EUR"
+  #   renewal_period: "[period]"
+  #   executor_sensitive: false

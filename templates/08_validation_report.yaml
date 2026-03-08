@@ -1,0 +1,144 @@
+# Organizational Schema Theory -- Module 8: Validation Report Output Template
+# Version: 1.0
+#
+# This template structures the gap analysis and validation report for a
+# complete business specification (Modules 1-7).
+#
+# Frameworks referenced:
+#   - TDD (Beck, 2003) -- contract-test traceability structure
+#   - Lean muda analysis (Ohno, 1988) -- waste detection categories
+#   - Value Stream Mapping (Rother and Shook, 1999) -- full-chain traceability
+#   - FMEA / IEC 60812 -- severity classification (error, warning, info)
+
+business:
+  name: "Spectra Coffee"
+  analysis_date: "2026-03-08"
+
+# --- Completeness ---
+# Every L0 contract should have at least one satisfying signal (L1),
+# every L1 at least one process contract (L2), and so on through the cascade.
+
+completeness:
+  l0_contracts: 12                     # Total experience contracts
+  l0_with_signals: 12                  # L0 contracts with >= 1 L1 signal
+  l1_signals: 18                       # Total signal requirements
+  l1_with_processes: 18                # L1 signals with >= 1 L2 process
+  l2_processes: 15                     # Total process contracts
+  l2_with_procedures: 15               # L2 processes with >= 1 L3 procedure
+  l3_procedures: 15                    # Total procedures
+  l3_with_inputs: 15                   # L3 procedures with >= 1 L4 input
+  l4_inputs: 22                        # Total input specifications
+  l4_with_sourcing: 22                 # L4 inputs with >= 1 L5 sourcing requirement
+  coverage_pct: 100                    # Percentage of L0 contracts fully satisfied
+
+# --- Traceability ---
+# Every L5 sourcing requirement should trace back to an L0 contract
+# through the full cascade: L5 -> L4 -> L3 -> L2 -> L1 -> L0.
+# Broken chains and orphans indicate specification gaps.
+
+traceability:
+  full_chain_count: 12                 # Number of complete L0-to-L5 chains
+  broken_chains: []                    # Chains that start but do not complete
+  # broken_chains example:
+  #   - chain_start: L0_product_excellence
+  #     breaks_at: L4
+  #     reason: "L3_espresso_extraction requires L4_espresso_beans but no L5 sourcing defined"
+  orphan_processes: []                 # L2 processes not linked to any L1
+  orphan_inputs: []                    # L4 inputs not linked to any L3
+  orphan_suppliers: []                 # L5 sourcing not linked to any L4
+
+# --- Consistency ---
+# No conflicting quality gates across processes. No contradictory constraints.
+
+consistency:
+  conflicting_gates: []                # Pairs of quality gates that contradict each other
+  # conflicting_gates example:
+  #   - gate_a: { process: L2_espresso_extraction, parameter: temperature_c, range: "92-94" }
+  #     gate_b: { process: L2_cold_brew, parameter: temperature_c, range: "2-6" }
+  #     conflict: "Not a true conflict -- different processes for different products"
+  contradictory_constraints: []        # Constraints or commitments that contradict each other
+  # contradictory_constraints example:
+  #   - constraint_a: L0_zero_waste_commitment
+  #     constraint_b: L2_espresso_extraction.failure_action
+  #     conflict: "Failure action discards shot without specifying recovery or reuse"
+
+# --- Dimension Coverage ---
+# All 8 SBT dimensions should be addressed by at least one L1 signal.
+# Unaddressed dimensions are warnings, not errors -- the designer should
+# make the decision consciously.
+
+dimension_coverage:
+  - dimension: semiotic
+    signal_count: 3
+    status: covered                    # covered (>= 2) | weak (1) | missing (0)
+  - dimension: narrative
+    signal_count: 2
+    status: covered
+  - dimension: ideological
+    signal_count: 2
+    status: covered
+  - dimension: experiential
+    signal_count: 4
+    status: covered
+  - dimension: social
+    signal_count: 2
+    status: covered
+  - dimension: economic
+    signal_count: 2
+    status: covered
+  - dimension: cultural
+    signal_count: 2
+    status: covered
+  - dimension: temporal
+    signal_count: 1
+    status: weak                       # Only 1 signal -- flagged as warning
+
+# --- Waste Detection ---
+# Processes, inputs, or suppliers that do not trace to any L0 contract
+# are potential muda (lean waste). They consume resources without
+# producing customer value.
+
+waste_detection:
+  unlinked_processes: []               # L2 processes with no L1 or L0 linkage
+  unlinked_inputs: []                  # L4 inputs with no downstream trace to L0
+  unlinked_suppliers: []               # L5 sourcing with no downstream trace to L0
+  # unlinked example:
+  #   - id: L2_monthly_deep_clean
+  #     reason: "Process exists but no L1 signal or L0 contract requires it"
+  #     recommendation: "Add L0 hygiene commitment or remove process"
+
+# --- Executor Impact (optional -- requires Module 7 output) ---
+# Signals that change when the active executor profile switches.
+# Helps the designer understand brand implications of automation decisions.
+
+executor_impact:
+  signals_lost_on_automation: []       # L1 signals unsatisfied when switching to automated
+  # signals_lost_on_automation example:
+  #   - signal: L1_craft_preparation
+  #     dimension: experiential
+  #     reason: "Automated executor eliminates visible hand-crafting that produces this signal"
+  signals_gained_on_automation: []     # L1 signals that improve or emerge with automation
+  # signals_gained_on_automation example:
+  #   - signal: L1_consistency
+  #     dimension: experiential
+  #     reason: "Automated extraction produces more consistent quality gates than human executor"
+
+# --- Issues ---
+# Flat list of all findings across all validation checks.
+# Each issue has a severity, type, location, description, and recommendation.
+
+issues:
+  - severity: warning                  # error | warning | info
+    type: dimension_gap
+    location: "dimension_coverage.temporal"
+    description: "Only 1 signal addresses the temporal dimension"
+    recommendation: "Consider whether heritage, evolution, or longevity signals would strengthen the specification"
+
+# --- Summary ---
+# Aggregate counts and overall deployment readiness.
+
+summary:
+  total_errors: 0
+  total_warnings: 1
+  total_info: 0
+  overall_status: pass_with_warnings   # pass | pass_with_warnings | fail

@@ -1,0 +1,293 @@
+# Organizational Schema Theory — Module 4: Procedure Specification Output Template
+# Version: 1.0
+#
+# This template structures the output of procedure specification.
+# AI should fill this structure when running Module 4.
+#
+# Procedures define HOW each process contract is executed -- step-by-step,
+# executor-specific. L3 is the ONLY level that changes when executor type
+# changes. L0-L2 remain stable regardless of who or what performs the work.
+#
+# Frameworks referenced:
+#   - Toyota Standardized Work (Ohno, 1988; Liker, 2004) — work sequence baseline
+#   - TWI Job Instruction (Training Within Industry) — step, key point, reason
+#   - ISO 9001:2015 — documented, versioned work instructions
+#   - Cognitive Task Analysis (Crandall et al., 2006) — expert decision capture
+#
+# Executor profiles:
+#   - human: trained person performs all steps manually
+#   - hybrid: person with automated assistance (some steps machine-controlled)
+#   - automated: machine performs all steps; human monitors and handles exceptions
+#
+# The active_executor selector (default: human) determines which profile is
+# currently in use. Switching executor type is a configuration change, not a rewrite.
+
+business:
+  name: "Spectra Coffee"                    # Business being specified
+  category: "Specialty coffee bar"          # Industry/category
+  location: "Berlin, Germany"               # Primary operating location
+  analysis_date: "2026-03-08"
+
+# --- Procedures ---
+# Each procedure implements a single L2 process contract.
+# The quality gates from L2 define what must be achieved.
+# The procedure specifies how to achieve it.
+#
+# Checkpoints reference L2 quality gates and verify correctness mid-execution.
+# Place checkpoints at steps where errors propagate downstream.
+
+procedures:
+
+  - id: L3_espresso_extraction
+    implements_contract: L2_espresso_extraction    # L2 process contract this fulfills
+    active_executor: human                         # human | hybrid | automated (default: human)
+    executor_profiles:
+
+      human:
+        executor_type: human
+        training_required: "SCA Barista Foundation certificate or equivalent hands-on training"
+        steps:
+          - step: 1
+            action: "Purge group head with 2-second flush to stabilize temperature"
+          - step: 2
+            action: "Dose 18g ground coffee into portafilter"
+            checkpoint:
+              parameter: dose_g
+              acceptable_range: "17-19g"
+              action_if_failed: "Adjust grinder dose setting, re-dose"
+          - step: 3
+            action: "Distribute grounds evenly, tamp level with approximately 15kg pressure"
+            checkpoint:
+              parameter: tamp_level
+              acceptable_range: "Even, level surface with no channeling risk"
+              action_if_failed: "Redistribute grounds, re-tamp"
+          - step: 4
+            action: "Lock portafilter into group head, start extraction immediately"
+          - step: 5
+            action: "Monitor extraction: steady stream, mouse-tail flow, 25-30 seconds"
+            checkpoint:
+              parameter: extraction_time_s
+              acceptable_range: "25-30s"
+              action_if_failed: "Adjust grind finer (short) or coarser (long), discard shot, retry"
+          - step: 6
+            action: "Cut extraction, verify yield and inspect crema"
+            checkpoint:
+              parameter: yield_ml
+              acceptable_range: "34-38ml"
+              action_if_failed: "Discard shot, recalibrate grinder, re-extract"
+          - step: 7
+            action: "Confirm crema is golden-brown with minimum 2mm depth"
+            checkpoint:
+              parameter: crema
+              acceptable_range: "Golden-brown, >= 2mm depth, no pale spots"
+              action_if_failed: "Discard shot, check bean freshness, adjust grind"
+
+      hybrid:
+        executor_type: hybrid
+        training_required: "Equipment operation certification, basic espresso technique"
+        automation: >
+          Gravimetric grinder (auto-dose at 18g), PID temperature controller
+          (holds 93C), auto-timer with volumetric cut-off.
+        monitoring: >
+          Operator monitors crema quality and flow rate visually.
+          Machine handles dose weight, brew temperature, and extraction timing.
+        steps:
+          - step: 1
+            action: "Load beans into gravimetric grinder hopper"
+          - step: 2
+            action: "Grinder doses and distributes 18g automatically"
+            checkpoint:
+              parameter: dose_g
+              acceptable_range: "17-19g (auto-verified by grinder scale)"
+              action_if_failed: "Recalibrate grinder, re-dose"
+          - step: 3
+            action: "Tamp manually, level with approximately 15kg pressure"
+            checkpoint:
+              parameter: tamp_level
+              acceptable_range: "Even, level surface"
+              action_if_failed: "Redistribute grounds, re-tamp"
+          - step: 4
+            action: "Lock portafilter, machine controls temperature (93C) and pre-infusion"
+          - step: 5
+            action: "Machine runs extraction on PID-controlled profile, auto-cuts at target yield"
+            checkpoint:
+              parameter: extraction_time_s
+              acceptable_range: "25-30s (auto-timed)"
+              action_if_failed: "Adjust grind setting, discard shot, retry"
+          - step: 6
+            action: "Inspect crema quality visually"
+            checkpoint:
+              parameter: crema
+              acceptable_range: "Golden-brown, >= 2mm depth"
+              action_if_failed: "Discard shot, check bean freshness"
+
+      automated:
+        executor_type: automated
+        training_required: "Machine operation protocol, daily cleaning procedure, exception handling"
+        automation: >
+          Bean-to-cup system with integrated burr grinder, automated tamper,
+          PID-controlled boiler, and volumetric dosing. All parameters
+          (dose, temperature, pressure, yield) are machine-controlled.
+        monitoring: >
+          Operator checks first shot of each shift visually.
+          Machine logs all extraction parameters for audit trail.
+          Alerts operator on three consecutive out-of-range extractions.
+        steps:
+          - step: 1
+            action: "Verify bean hopper level is sufficient for service period"
+            checkpoint:
+              parameter: hopper_level
+              acceptable_range: "Minimum 500g beans"
+              action_if_failed: "Refill hopper before starting"
+          - step: 2
+            action: "Select espresso program on machine interface"
+          - step: 3
+            action: "Machine grinds, doses (18g), tamps, and extracts automatically"
+            checkpoint:
+              parameter: extraction_time_s
+              acceptable_range: "25-30s (auto-verified, logged)"
+              action_if_failed: "Machine auto-adjusts grind; alerts operator after 3 failures"
+          - step: 4
+            action: "Machine dispenses into cup, logs extraction data"
+            checkpoint:
+              parameter: yield_ml
+              acceptable_range: "34-38ml (auto-measured)"
+              action_if_failed: "Machine flags shot, operator decides to serve or discard"
+          - step: 5
+            action: "Operator performs visual quality check on crema (first shot per shift, random spot checks)"
+            checkpoint:
+              parameter: crema
+              acceptable_range: "Golden-brown, >= 2mm depth"
+              action_if_failed: "Run cleaning cycle, re-extract test shot"
+
+  - id: L3_customer_greeting
+    implements_contract: L2_customer_greeting
+    active_executor: human
+    executor_profiles:
+
+      human:
+        executor_type: human
+        training_required: "Onboarding greeting protocol (30-minute training module)"
+        steps:
+          - step: 1
+            action: "Notice customer entering via door chime or peripheral vision"
+          - step: 2
+            action: "Make eye contact within 5 seconds of entry"
+            checkpoint:
+              parameter: eye_contact
+              acceptable_range: "true"
+              action_if_failed: "Acknowledge customer verbally as soon as noticed"
+          - step: 3
+            action: "Deliver verbal greeting: 'Welcome to Spectra' or equivalent warm acknowledgment"
+            checkpoint:
+              parameter: greeting_time_s
+              acceptable_range: "<= 15s from entry"
+              action_if_failed: "Apologize for delay, greet warmly"
+          - step: 4
+            action: "If queue exceeds 3 people, proactively communicate estimated wait time"
+            checkpoint:
+              parameter: queue_communication
+              acceptable_range: "Wait time communicated when queue > 3"
+              action_if_failed: "Inform customer immediately upon noticing queue length"
+
+  - id: L3_milk_steaming
+    implements_contract: L2_milk_steaming
+    active_executor: human
+    executor_profiles:
+
+      human:
+        executor_type: human
+        training_required: "SCA Barista Foundation or equivalent; milk texturing practice (minimum 20 hours)"
+        steps:
+          - step: 1
+            action: "Fill pitcher with cold fresh milk to just below spout base"
+          - step: 2
+            action: "Purge steam wand (2-second burst to clear condensation)"
+          - step: 3
+            action: "Submerge steam tip just below milk surface, open steam valve fully"
+          - step: 4
+            action: "Introduce air for 2-3 seconds (stretching phase), then submerge tip to create vortex (texturing phase)"
+          - step: 5
+            action: "Monitor temperature by touch on pitcher base; stop at 60-65C"
+            checkpoint:
+              parameter: temperature_c
+              acceptable_range: "60-65C"
+              action_if_failed: "Discard milk, re-steam with fresh milk"
+          - step: 6
+            action: "Tap pitcher on counter to break large bubbles, swirl to integrate"
+            checkpoint:
+              parameter: foam_consistency
+              acceptable_range: "Microfoam, no visible bubbles larger than 1mm"
+              action_if_failed: "Discard milk, re-steam with fresh milk"
+          - step: 7
+            action: "Pour immediately; free pour latte art to verify texture quality"
+            checkpoint:
+              parameter: pour_pattern
+              acceptable_range: "Latte art achievable via free pour"
+              action_if_failed: "If two consecutive failures, recalibrate steam wand pressure"
+
+      hybrid:
+        executor_type: hybrid
+        training_required: "Auto-steamer operation, latte art technique"
+        automation: >
+          Automatic steam wand with temperature probe and auto-shutoff at target
+          temperature. Stretching duration is pre-programmed.
+        monitoring: >
+          Operator monitors foam texture visually and performs the pour.
+          Machine controls temperature and steam duration.
+        steps:
+          - step: 1
+            action: "Fill pitcher with cold fresh milk to indicated line"
+          - step: 2
+            action: "Place pitcher under auto-steam wand, select program"
+          - step: 3
+            action: "Machine steams to 62C with programmed stretch-and-texture cycle"
+            checkpoint:
+              parameter: temperature_c
+              acceptable_range: "60-65C (auto-controlled)"
+              action_if_failed: "Recalibrate temperature probe, re-steam with fresh milk"
+          - step: 4
+            action: "Tap pitcher, swirl, verify microfoam quality"
+            checkpoint:
+              parameter: foam_consistency
+              acceptable_range: "Microfoam, no visible bubbles larger than 1mm"
+              action_if_failed: "Discard milk, adjust stretch duration, re-steam"
+          - step: 5
+            action: "Pour immediately; free pour latte art"
+
+  # --- Template for additional procedures ---
+  # Copy this block for each new procedure:
+  #
+  # - id: L3_[snake_case_name]
+  #   implements_contract: L2_[contract_id]
+  #   active_executor: human                     # human | hybrid | automated
+  #   executor_profiles:
+  #
+  #     human:
+  #       executor_type: human
+  #       training_required: "[prerequisites]"
+  #       steps:
+  #         - step: 1
+  #           action: "[what the executor does]"
+  #           checkpoint:                         # Optional -- include where errors propagate
+  #             parameter: "[L2 quality gate name]"
+  #             acceptable_range: "[min-max or description]"
+  #             action_if_failed: "[corrective action]"
+  #
+  #     hybrid:                                   # Optional -- include if applicable
+  #       executor_type: hybrid
+  #       training_required: "[prerequisites]"
+  #       automation: "[what system handles which steps]"
+  #       monitoring: "[what the human operator watches]"
+  #       steps:
+  #         - step: 1
+  #           action: "[what happens]"
+  #
+  #     automated:                                # Optional -- include if applicable
+  #       executor_type: automated
+  #       training_required: "[operator prerequisites]"
+  #       automation: "[full system description]"
+  #       monitoring: "[what operator watches, alert conditions]"
+  #       steps:
+  #         - step: 1
+  #           action: "[what happens]"

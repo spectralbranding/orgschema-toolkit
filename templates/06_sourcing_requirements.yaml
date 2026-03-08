@@ -1,0 +1,122 @@
+# Organizational Schema Theory — Module 6: Sourcing Requirements Output Template
+# Version: 1.0
+#
+# This template structures the output of sourcing requirement specification.
+# AI should fill this structure when running Module 6.
+#
+# Sourcing requirements define WHERE and FROM WHOM each L4 input is obtained.
+# They specify supplier criteria, delivery logistics, and contingency plans --
+# not the input specifications themselves (those live at L4).
+#
+# Frameworks referenced:
+#   - ISO 9001:2015 clause 8.4 — control of externally provided processes
+#   - Supplier Relationship Management (Monczka et al., 2015) — supplier evaluation
+#   - Supply Chain Risk Management (ISO 28000) — contingency planning
+#   - Total Cost of Ownership (Ellram, 1995) — beyond unit-price evaluation
+
+business:
+  name: "Spectra Coffee"                    # Business being specified
+  category: "Specialty coffee bar"          # Industry/category
+  location: "Berlin, Germany"               # Primary operating location
+  analysis_date: "2026-03-08"
+
+# --- Sourcing Requirements ---
+# Each requirement specifies how a single L4 input is sourced.
+# Requirements link downward to L4 inputs (sourced_from) and optionally
+# upward to L0 commitments (satisfies_commitment).
+#
+# Supplier criteria use measurable parameters where possible.
+# Delivery logistics specify frequency, packaging, and temperature.
+# Backup supplier policy addresses supply chain contingency.
+
+sourcing_requirements:
+
+  - id: L5_coffee_supplier
+    sourced_from: L4_espresso_beans          # L4 input specification ID
+    criteria:
+      certifications:                        # Required supplier certifications
+        - direct_trade
+      lead_time_days:
+        max: 14                              # Maximum acceptable lead time
+      order_frequency: monthly               # How often orders are placed
+      minimum_order:
+        quantity: 10
+        unit: kg
+    delivery:
+      frequency: monthly                     # Delivery schedule
+      packaging: "Valved foil bags with roast date label"
+      temperature_requirements: "Ambient, cool and dry storage"
+    backup_supplier:
+      required: true                         # Whether a backup source is mandatory
+      policy: >
+        Activate backup if primary lead time exceeds 21 days or two
+        consecutive shipments fail quality gate (SCA score below 84).
+        Backup must also hold direct trade certification.
+    satisfies_commitment:                    # Optional: L0 commitment IDs fulfilled
+      - L0_ethical_sourcing
+
+  - id: L5_equipment_supplier
+    sourced_from: L4_espresso_machine
+    criteria:
+      certifications:
+        - manufacturer_authorized
+      authorized_service_partner: true       # Must be authorized for warranty service
+      response_time_hours:
+        max: 24                              # Maximum response time for service calls
+    delivery:
+      frequency: as_needed                   # Replacement parts on demand
+      packaging: "OEM packaging, anti-static where required"
+      temperature_requirements: null         # Not applicable
+    backup_supplier:
+      required: true
+      policy: >
+        Activate backup if primary response time exceeds 48 hours.
+        Backup must be manufacturer-authorized or factory-trained.
+
+  - id: L5_milk_supplier
+    sourced_from: L4_whole_milk
+    criteria:
+      certifications:
+        - organic_certified
+      lead_time_days:
+        max: 1                               # Next-day or same-day delivery
+      order_frequency: daily
+      minimum_order:
+        quantity: 10
+        unit: l
+    delivery:
+      frequency: daily                       # Daily delivery before opening
+      packaging: "Refrigerated crates, sealed containers"
+      temperature_requirements: "Cold chain maintained at 2-6 C"
+    backup_supplier:
+      required: true
+      policy: >
+        Activate backup if primary delivery not received by 07:00.
+        Backup must hold organic certification.
+        Non-organic milk is not an acceptable substitution.
+    satisfies_commitment:                    # Organic sourcing may fulfill a commitment
+      - L0_ethical_sourcing
+
+  # --- Template for additional sourcing requirements ---
+  # Copy this block for each new sourcing requirement:
+  #
+  # - id: L5_[snake_case_name]
+  #   sourced_from: L4_[input_id]            # Required: L4 input specification ID
+  #   criteria:
+  #     certifications:                      # Array of required certifications
+  #       - [certification_name]
+  #     lead_time_days:
+  #       max: [number]                      # Maximum acceptable lead time in days
+  #     order_frequency: [daily|weekly|monthly|quarterly|as_needed]
+  #     minimum_order:
+  #       quantity: [number]
+  #       unit: [unit]                       # SI units: kg, l, units
+  #   delivery:
+  #     frequency: [daily|weekly|monthly|as_needed]
+  #     packaging: "[packaging requirements]"
+  #     temperature_requirements: "[cold chain or ambient requirements]"
+  #   backup_supplier:
+  #     required: [true|false]
+  #     policy: "[when to activate backup, acceptable trade-offs]"
+  #   satisfies_commitment:                  # Optional: array of L0 commitment IDs
+  #     - L0_[commitment_id]

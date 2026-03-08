@@ -1,0 +1,118 @@
+# Organizational Schema Theory -- Industry Starter Pack: Professional Services
+# Version: 1.0
+#
+# Pre-filled L0 experience contracts for consulting, agencies,
+# legal, accounting, and other professional service businesses.
+
+business:
+  name: "[YOUR BUSINESS NAME]"
+  category: "Professional services"
+  location: "[CITY, COUNTRY]"
+  analysis_date: "[DATE]"
+
+experience_contracts:
+
+  # --- Experience contracts ---
+
+  - id: L0_deliverable_quality
+    type: experience
+    description: >
+      Work products meet agreed specifications, are professionally
+      presented, and actionable by the client.
+    proxy_indicators:
+      - metric: "client_satisfaction_score"
+        target: ">= 4.5 / 5"
+        measurement_method: "Post-engagement survey"
+      - metric: "revision_rounds"
+        target: "<= 2"
+        measurement_method: "Project tracking system"
+    priority: critical
+
+  - id: L0_communication_cadence
+    type: experience
+    description: >
+      Client is informed of progress at regular intervals.
+      No surprises on timeline, scope, or budget.
+    proxy_indicators:
+      - metric: "update_frequency_days"
+        target: "<= 7"
+        measurement_method: "Communication log"
+      - metric: "scope_change_notification_hours"
+        target: "<= 24"
+        measurement_method: "Project management system"
+    priority: high
+
+  - id: L0_responsiveness
+    type: experience
+    description: >
+      Client inquiries are acknowledged within business hours
+      and substantively addressed within agreed timelines.
+    proxy_indicators:
+      - metric: "acknowledgment_time_hours"
+        target: "<= 4"
+        measurement_method: "Email/message response tracking"
+    priority: high
+
+  - id: L0_domain_expertise
+    type: experience
+    description: >
+      Team demonstrates current, relevant expertise in the
+      client's domain. Recommendations are evidence-based.
+    proxy_indicators:
+      - metric: "team_certification_currency"
+        target: "All certifications current"
+        measurement_method: "Annual credential audit"
+    priority: high
+
+  - id: L0_timeline_reliability
+    type: experience
+    description: >
+      Milestones and deadlines are met as agreed. Delays are
+      communicated proactively with revised timelines.
+    proxy_indicators:
+      - metric: "on_time_delivery_pct"
+        target: ">= 90"
+        measurement_method: "Milestone tracking"
+    priority: high
+
+  # --- Constraint contracts ---
+
+  - id: L0_confidentiality
+    type: constraint
+    source: "NDA, professional ethics codes, or industry regulations"
+    description: >
+      Client information is handled with strict confidentiality.
+      Data access limited to engaged team members.
+    priority: critical
+
+  - id: L0_professional_liability
+    type: constraint
+    source: "Professional liability regulations or industry standards"
+    description: >
+      Appropriate professional liability insurance maintained.
+      Conflicts of interest disclosed and managed.
+    priority: critical
+
+  # --- Commitment contracts ---
+
+  - id: L0_knowledge_transfer
+    type: commitment
+    description: >
+      Engagement ends with the client capable of maintaining or
+      extending the delivered work. No artificial dependency.
+    proxy_indicators:
+      - metric: "handoff_documentation_complete"
+        target: "true"
+        measurement_method: "Deliverable checklist"
+    priority: high
+
+  - id: L0_continuous_development
+    type: commitment
+    description: >
+      Team invests in ongoing professional development to maintain
+      leading-edge expertise in relevant domains.
+    proxy_indicators:
+      - metric: "training_hours_per_person_per_year"
+        target: ">= 40"
+        measurement_method: "Training log"
+    priority: medium

@@ -1,0 +1,149 @@
+# Organizational Schema Theory — Module 1: Experience Design Output Template
+# Version: 1.0
+#
+# This template structures the output of an experience design analysis.
+# AI should fill this structure when running Module 1.
+#
+# Frameworks referenced:
+#   - Design Thinking (Brown, 2009) — customer-centered experience framing
+#   - Jobs-to-Be-Done (Christensen et al., 2016) — functional/emotional/social jobs
+#   - Service Blueprinting (Shostack, 1984) — touchpoint identification
+#   - Backward Design (Wiggins and McTighe, 1998) — start from desired outcomes
+#
+# Three contract types:
+#   - experience: What the customer should perceive, feel, or achieve
+#   - constraint: What regulations, laws, or standards require (include source)
+#   - commitment: What the organization voluntarily promises beyond legal requirements
+#
+# Proxy indicators: Measurable proxies for subjective experience goals.
+#   - Required for experience contracts
+#   - Often defined by regulation for constraint contracts
+#   - Optional for commitment contracts
+
+business:
+  name: "Spectra Coffee"                     # Business being specified
+  category: "Specialty coffee shop"          # Industry/category
+  location: "Berlin, Germany"                # City, country
+  analysis_date: "2026-03-08"
+
+# --- Experience Contracts ---
+# L0 is the top level of the TDD cascade. Everything below (L1-L5) exists
+# to satisfy these contracts. Each contract defines WHAT must be achieved,
+# not HOW. The "how" comes in later modules.
+#
+# Contract types:
+#   experience  — subjective customer goals (proxy indicators required)
+#   constraint  — regulatory/legal requirements (source field required)
+#   commitment  — voluntary organizational promises
+#
+# Priority levels: critical | high | medium | low
+#   critical = failure here means the business fails its core promise
+#   high     = significant impact on customer perception or compliance
+#   medium   = noticeable but not defining
+#   low      = aspirational or nice-to-have
+
+experience_contracts:
+
+  # --- Experience contracts ---
+  # What should customers perceive, feel, or achieve?
+
+  - id: L0_product_excellence
+    type: experience
+    description: "Espresso is balanced, sweet, with a clean finish and no bitterness. Pour-over highlights origin character. Milk beverages have smooth, glossy microfoam."
+    proxy_indicators:
+      - metric: "extraction_time_s"           # What is measured
+        target: "25-30"                       # Acceptable range or threshold
+        measurement_method: "Timer from pump activation to cut"
+      - metric: "customer_satisfaction_score"
+        target: ">= 4.5 / 5"
+        measurement_method: "Monthly feedback card sample (n >= 30)"
+    priority: critical
+    satisfies_experience: null                # null for L0 — this IS the top level
+
+  - id: L0_welcoming_atmosphere
+    type: experience
+    description: "Every customer is acknowledged within 10 seconds of entering. The space feels calm, unhurried, and inviting regardless of how busy the shop is."
+    proxy_indicators:
+      - metric: "greeting_time_s"
+        target: "<= 10"
+        measurement_method: "Mystery shopper observation, quarterly"
+      - metric: "ambient_noise_db"
+        target: "<= 65"
+        measurement_method: "Decibel meter reading during peak hours"
+    priority: high
+    satisfies_experience: null
+
+  - id: L0_service_speed
+    type: experience
+    description: "Drinks are delivered within a reasonable window — fast enough to feel efficient, slow enough to feel crafted, never so long that customers wonder if they were forgotten."
+    proxy_indicators:
+      - metric: "delivery_time_s"
+        target: "60-180"
+        measurement_method: "Timer from order confirmation to handoff"
+    priority: high
+    satisfies_experience: null
+
+  # --- Constraint contracts ---
+  # What do regulations, laws, or standards require?
+  # Always include the source field.
+
+  - id: L0_food_safety_compliance
+    type: constraint
+    description: "All food handling, storage, and preparation complies with EU food safety regulations and German food hygiene law."
+    source: "EU Regulation 852/2004; German LMHV (Lebensmittelhygiene-Verordnung)"
+    proxy_indicators:
+      - metric: "health_inspection_score"
+        target: "Pass with no critical findings"
+        measurement_method: "Annual Ordnungsamt inspection"
+      - metric: "haccp_compliance"
+        target: "All critical control points documented and monitored"
+        measurement_method: "Internal HACCP audit, monthly"
+    priority: critical
+    satisfies_experience: null
+
+  - id: L0_allergen_transparency
+    type: constraint
+    description: "All allergens present in products are clearly communicated to customers before purchase."
+    source: "EU Regulation 1169/2011 (Food Information to Consumers)"
+    proxy_indicators:
+      - metric: "allergen_display_compliance"
+        target: "100% of products with allergen information visible"
+        measurement_method: "Menu and display audit, quarterly"
+    priority: critical
+    satisfies_experience: null
+
+  # --- Commitment contracts ---
+  # What does the organization voluntarily promise beyond legal requirements?
+  # These are differentiators — chosen obligations that reflect values.
+
+  - id: L0_ethical_sourcing
+    type: commitment
+    description: "All coffee is sourced through direct trade relationships with producers, paying above Fair Trade minimum prices."
+    proxy_indicators:
+      - metric: "direct_trade_percentage"
+        target: "100%"
+        measurement_method: "Supplier contract audit, annual"
+      - metric: "price_above_fair_trade_pct"
+        target: ">= 25%"
+        measurement_method: "Invoice comparison against current Fair Trade base price"
+    priority: high
+    satisfies_experience: null
+
+  - id: L0_sustainability_practice
+    type: commitment
+    description: "Minimize environmental impact through waste reduction, compostable packaging, and energy-efficient equipment."
+    proxy_indicators:
+      - metric: "single_use_plastic_items"
+        target: "0"
+        measurement_method: "Inventory audit of packaging and service items, quarterly"
+      - metric: "waste_diversion_rate_pct"
+        target: ">= 80"
+        measurement_method: "Waste stream audit, monthly"
+    priority: medium
+    satisfies_experience: null
+
+  # Add more contracts as needed. Aim for 8-15 total, covering:
+  #   - Functional outcomes (product quality, service speed, accuracy)
+  #   - Emotional/atmospheric outcomes (ambiance, trust, delight)
+  #   - Applicable local regulations (food safety, labor, accessibility)
+  #   - Voluntary commitments (sustainability, sourcing ethics, community)

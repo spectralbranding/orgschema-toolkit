@@ -1,0 +1,164 @@
+# Organizational Schema Theory -- Industry Starter Pack: Food Service
+# Version: 1.0
+#
+# Pre-filled L0 experience contracts for food service businesses
+# (cafes, restaurants, bakeries, food trucks).
+#
+# Usage: Copy this file, modify for your specific business, then feed
+# into Module 2 (Signal Architecture) to continue the cascade.
+#
+# Reference implementation: Spectra Coffee (orgschema-demo)
+
+business:
+  name: "[YOUR BUSINESS NAME]"
+  category: "Food service"
+  location: "[CITY, COUNTRY]"
+  analysis_date: "[DATE]"
+
+experience_contracts:
+
+  # --- Experience contracts (customer perception) ---
+
+  - id: L0_product_quality
+    type: experience
+    description: >
+      Core product meets or exceeds customer quality expectations.
+      Consistent across servings, shifts, and staff.
+    proxy_indicators:
+      - metric: "customer_satisfaction_score"
+        target: ">= 4.5 / 5"
+        measurement_method: "Post-visit survey or review aggregation"
+      - metric: "consistency_variance"
+        target: "< 5% deviation between servings"
+        measurement_method: "Internal quality control sampling"
+    priority: critical
+
+  - id: L0_welcoming_atmosphere
+    type: experience
+    description: >
+      Customers feel welcomed from entry. Space is comfortable,
+      clean, and appropriate to the brand positioning.
+    proxy_indicators:
+      - metric: "time_to_acknowledgment_s"
+        target: "<= 30"
+        measurement_method: "Staff observation or mystery shopper"
+      - metric: "ambient_noise_db"
+        target: "55-70"
+        measurement_method: "Periodic measurement"
+    priority: high
+
+  - id: L0_service_speed
+    type: experience
+    description: >
+      Orders are fulfilled within expectations for the service format.
+      Wait times are predictable and communicated.
+    proxy_indicators:
+      - metric: "order_to_delivery_s"
+        target: "<= 300"
+        measurement_method: "POS timestamp or manual timing"
+    priority: high
+
+  - id: L0_staff_knowledge
+    type: experience
+    description: >
+      Staff can answer questions about ingredients, preparation methods,
+      allergens, and origin of key products.
+    proxy_indicators:
+      - metric: "question_accuracy_pct"
+        target: ">= 90"
+        measurement_method: "Mystery shopper assessment"
+    priority: medium
+
+  - id: L0_menu_transparency
+    type: experience
+    description: >
+      Pricing, ingredients, and allergen information are clearly
+      displayed and accurate.
+    proxy_indicators:
+      - metric: "menu_accuracy_pct"
+        target: "100"
+        measurement_method: "Monthly audit against actual recipes"
+    priority: high
+
+  # --- Constraint contracts (regulatory) ---
+
+  - id: L0_food_safety
+    type: constraint
+    source: "Local food safety regulations (e.g., EU Regulation 852/2004, FDA Food Code)"
+    description: >
+      All food handling, storage, and preparation meets applicable
+      food safety regulations. HACCP principles applied.
+    proxy_indicators:
+      - metric: "health_inspection_score"
+        target: "Pass (no critical violations)"
+        measurement_method: "Regulatory inspection"
+      - metric: "internal_haccp_compliance_pct"
+        target: "100"
+        measurement_method: "Monthly self-audit"
+    priority: critical
+
+  - id: L0_allergen_management
+    type: constraint
+    source: "EU Regulation 1169/2011 or local allergen disclosure law"
+    description: >
+      All 14 major allergens declared. Cross-contamination risks
+      identified and managed. Staff trained in allergen protocols.
+    proxy_indicators:
+      - metric: "allergen_declaration_completeness"
+        target: "100%"
+        measurement_method: "Recipe-to-menu audit"
+      - metric: "allergen_incidents"
+        target: "0"
+        measurement_method: "Incident log"
+    priority: critical
+
+  - id: L0_employment_law
+    type: constraint
+    source: "Local labor regulations"
+    description: >
+      Working hours, wages, breaks, and conditions comply with
+      applicable employment law.
+    priority: critical
+
+  - id: L0_fire_safety
+    type: constraint
+    source: "Local fire safety regulations"
+    description: >
+      Fire exits, extinguishers, suppression systems, and evacuation
+      procedures meet regulatory requirements.
+    priority: critical
+
+  # --- Commitment contracts (voluntary) ---
+
+  - id: L0_ethical_sourcing
+    type: commitment
+    description: >
+      Key ingredients sourced from suppliers meeting the organization's
+      ethical standards (e.g., direct trade, fair trade, organic).
+    proxy_indicators:
+      - metric: "ethical_sourcing_pct"
+        target: ">= 80"
+        measurement_method: "Supplier certification audit"
+    priority: high
+
+  - id: L0_waste_reduction
+    type: commitment
+    description: >
+      Food waste minimized through forecasting, portioning, and
+      end-of-day protocols. Target reduction tracked monthly.
+    proxy_indicators:
+      - metric: "food_waste_kg_per_day"
+        target: "Decreasing trend"
+        measurement_method: "Daily waste log"
+    priority: medium
+
+  - id: L0_community_engagement
+    type: commitment
+    description: >
+      Business participates in the local community through events,
+      partnerships, or neighborhood initiatives.
+    proxy_indicators:
+      - metric: "community_events_per_quarter"
+        target: ">= 2"
+        measurement_method: "Event log"
+    priority: low

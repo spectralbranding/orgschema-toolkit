@@ -1,0 +1,137 @@
+# Organizational Schema Theory -- Industry Starter Pack: SaaS
+# Version: 1.0
+#
+# Pre-filled L0 experience contracts for B2B SaaS businesses
+# (cloud software, platforms, developer tools).
+
+business:
+  name: "[YOUR BUSINESS NAME]"
+  category: "SaaS (B2B)"
+  location: "[CITY, COUNTRY]"
+  analysis_date: "[DATE]"
+
+experience_contracts:
+
+  # --- Experience contracts ---
+
+  - id: L0_uptime_reliability
+    type: experience
+    description: >
+      Service is available and responsive. Downtime is rare,
+      brief, and communicated in advance when planned.
+    proxy_indicators:
+      - metric: "uptime_pct"
+        target: ">= 99.9"
+        measurement_method: "Automated monitoring (e.g., Pingdom, UptimeRobot)"
+      - metric: "p99_response_time_ms"
+        target: "<= 500"
+        measurement_method: "APM tool (e.g., Datadog, New Relic)"
+    priority: critical
+
+  - id: L0_onboarding_experience
+    type: experience
+    description: >
+      New users reach first value within a reasonable timeframe.
+      Onboarding is self-service with human support available.
+    proxy_indicators:
+      - metric: "time_to_first_value_min"
+        target: "<= 30"
+        measurement_method: "Product analytics (activation event)"
+      - metric: "onboarding_completion_pct"
+        target: ">= 80"
+        measurement_method: "Funnel analytics"
+    priority: high
+
+  - id: L0_support_responsiveness
+    type: experience
+    description: >
+      Support requests are acknowledged promptly and resolved
+      within SLA timelines. Critical issues escalated immediately.
+    proxy_indicators:
+      - metric: "first_response_time_min"
+        target: "<= 60"
+        measurement_method: "Help desk metrics"
+      - metric: "resolution_time_hours"
+        target: "<= 24"
+        measurement_method: "Help desk metrics"
+    priority: high
+
+  - id: L0_documentation_quality
+    type: experience
+    description: >
+      API documentation, guides, and tutorials are accurate,
+      up-to-date, and searchable. Code examples work.
+    proxy_indicators:
+      - metric: "doc_freshness_days"
+        target: "<= 30 since last feature release"
+        measurement_method: "Documentation audit"
+    priority: high
+
+  - id: L0_integration_ecosystem
+    type: experience
+    description: >
+      Product integrates with tools customers already use.
+      API is well-documented and stable.
+    proxy_indicators:
+      - metric: "api_breaking_changes_per_year"
+        target: "<= 2"
+        measurement_method: "Changelog audit"
+    priority: medium
+
+  # --- Constraint contracts ---
+
+  - id: L0_data_security
+    type: constraint
+    source: "SOC 2 Type II, ISO 27001, or equivalent"
+    description: >
+      Customer data encrypted at rest and in transit. Access
+      controls, audit logging, and incident response in place.
+    proxy_indicators:
+      - metric: "security_audit_status"
+        target: "Current certification"
+        measurement_method: "Annual third-party audit"
+    priority: critical
+
+  - id: L0_data_privacy
+    type: constraint
+    source: "GDPR, CCPA, or applicable data protection law"
+    description: >
+      Personal data processed lawfully. Data subject rights
+      (access, deletion, portability) implemented and tested.
+    proxy_indicators:
+      - metric: "dsar_response_time_days"
+        target: "<= 30"
+        measurement_method: "DSAR log"
+    priority: critical
+
+  - id: L0_accessibility_compliance
+    type: constraint
+    source: "WCAG 2.1 AA or applicable accessibility standard"
+    description: >
+      Web application meets accessibility standards. Regular
+      testing with assistive technologies.
+    priority: high
+
+  # --- Commitment contracts ---
+
+  - id: L0_transparent_pricing
+    type: commitment
+    description: >
+      Pricing is published, predictable, and free of hidden fees.
+      Changes communicated with adequate notice.
+    proxy_indicators:
+      - metric: "pricing_complaint_rate"
+        target: "< 1% of customers per quarter"
+        measurement_method: "Support ticket classification"
+    priority: high
+
+  - id: L0_data_portability
+    type: commitment
+    description: >
+      Customers can export their data in standard formats at any
+      time. No vendor lock-in by design.
+    proxy_indicators:
+      - metric: "export_formats_supported"
+        target: ">= 2 (CSV, JSON, or API)"
+        measurement_method: "Feature audit"
+    priority: medium

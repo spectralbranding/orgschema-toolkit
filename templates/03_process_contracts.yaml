@@ -1,0 +1,139 @@
+# Organizational Schema Theory — Module 3: Process Contracts Output Template
+# Version: 1.0
+#
+# This template structures the output of process contract specification.
+# AI should fill this structure when running Module 3.
+#
+# Process contracts define WHAT each process must achieve (measurable outcomes),
+# not HOW (methods or procedures). They are executor-invariant: any executor
+# (human, machine, hybrid) that passes the quality gates is valid.
+#
+# Frameworks referenced:
+#   - SIPOC (Six Sigma) — process boundary definition
+#   - ISO 9001:2015 — process approach, measurable quality objectives
+#   - Business Process Management (Dumas et al., 2018) — process decomposition
+#   - Quality Function Deployment (Akao, 1966) — customer-to-process traceability
+
+business:
+  name: "Spectra Coffee"                    # Business being specified
+  category: "Specialty coffee bar"          # Industry/category
+  location: "Berlin, Germany"               # Primary operating location
+  analysis_date: "2026-03-08"
+
+# --- Process Contracts ---
+# Each contract specifies measurable outcomes for a single process.
+# Contracts link upward to L1 signal requirements (satisfies_signal)
+# and optionally to L0 constraints (satisfies_constraint) or
+# L0 commitments (satisfies_commitment).
+#
+# Quality gates use SI units where applicable (g, ml, s, C).
+# Each gate has min/max/target (numeric) or description (qualitative).
+# Failure actions specify concrete response to non-conformance.
+
+process_contracts:
+
+  - id: L2_espresso_extraction
+    satisfies_signal:                       # Array of L1 signal requirement IDs
+      - L1_craft_preparation
+      - L1_taste_quality
+    satisfies_constraint: []                # Optional: array of L0 constraint IDs
+    satisfies_commitment: []                # Optional: array of L0 commitment IDs
+    quality_gates:
+      extraction_time_s:
+        min: 25                             # Minimum acceptable value
+        max: 30                             # Maximum acceptable value
+        target: 27                          # Ideal value (optional)
+        description: "Time from pump start to cut"
+      temperature_c:
+        min: 92
+        max: 94
+        target: 93
+        description: "Brew water temperature at group head"
+      dose_g:
+        min: 17
+        max: 19
+        target: 18
+        description: "Dry coffee weight in portafilter"
+      yield_ml:
+        min: 34
+        max: 38
+        target: 36
+        description: "Liquid espresso volume in cup"
+      crema:
+        description: "Present, golden-brown, minimum 2mm depth"
+    failure_action: >
+      Discard shot, recalibrate grinder, re-extract.
+      If three consecutive failures, pull machine offline and descale.
+    owner_role: barista                     # Optional: role responsible for compliance
+
+  - id: L2_allergen_management
+    satisfies_signal: []
+    satisfies_constraint:
+      - L0_food_safety_compliance
+    quality_gates:
+      allergen_matrix_current:
+        target: true
+        description: "Allergen matrix reviewed and current for all menu items"
+      cross_contamination_incidents:
+        max: 0
+        description: "Zero tolerance for cross-contamination events"
+      staff_training_current:
+        target: true
+        description: "All food-handling staff completed allergen training"
+    failure_action: >
+      Halt service of affected product, notify shift lead,
+      update allergen matrix, retrain involved staff within 24 hours.
+    owner_role: shift_lead
+
+  - id: L2_customer_greeting
+    satisfies_signal:
+      - L1_warm_greeting
+    quality_gates:
+      greeting_time_s:
+        max: 15
+        target: 5
+        description: "Seconds after customer enters before verbal or visual acknowledgment"
+      eye_contact:
+        target: true
+        description: "Visual acknowledgment made with arriving customer"
+      queue_communication:
+        description: "Wait time communicated proactively if queue exceeds 3 people"
+    failure_action: >
+      Coach staff member on greeting protocol during next shift debrief.
+    owner_role: barista
+
+  - id: L2_milk_steaming
+    satisfies_signal:
+      - L1_craft_preparation
+      - L1_taste_quality
+    quality_gates:
+      temperature_c:
+        min: 60
+        max: 65
+        target: 62
+        description: "Final milk temperature"
+      foam_consistency:
+        description: "Microfoam texture, no visible bubbles larger than 1mm"
+      pour_pattern:
+        description: "Latte art achievable via free pour test"
+    failure_action: >
+      Discard milk, re-steam with fresh milk.
+      If two consecutive failures, recalibrate steam wand pressure.
+    owner_role: barista
+
+  # --- Template for additional contracts ---
+  # Copy this block for each new process contract:
+  #
+  # - id: L2_[snake_case_name]
+  #   satisfies_signal:
+  #     - L1_[signal_id]
+  #   satisfies_constraint: []              # Optional
+  #   satisfies_commitment: []              # Optional
+  #   quality_gates:
+  #     [parameter_name]:
+  #       min: [number]                     # Omit if not applicable
+  #       max: [number]                     # Omit if not applicable
+  #       target: [number or boolean]       # Omit if not applicable
+  #       description: "[what this measures]"
+  #   failure_action: "[concrete response to non-conformance]"
+  #   owner_role: [role_name]              # Optional

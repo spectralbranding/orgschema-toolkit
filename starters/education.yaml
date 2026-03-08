@@ -1,0 +1,126 @@
+# Organizational Schema Theory -- Industry Starter Pack: Education
+# Version: 1.0
+#
+# Pre-filled L0 experience contracts for education businesses
+# (courses, programs, bootcamps, training providers).
+
+business:
+  name: "[YOUR BUSINESS NAME]"
+  category: "Education"
+  location: "[CITY, COUNTRY]"
+  analysis_date: "[DATE]"
+
+experience_contracts:
+
+  # --- Experience contracts ---
+
+  - id: L0_learning_outcomes
+    type: experience
+    description: >
+      Students achieve stated learning objectives. Competency
+      is demonstrable and assessed against clear criteria.
+    proxy_indicators:
+      - metric: "learning_objective_achievement_pct"
+        target: ">= 85"
+        measurement_method: "Post-course assessment"
+      - metric: "competency_demonstration_pct"
+        target: ">= 80"
+        measurement_method: "Practical assessment or portfolio review"
+    priority: critical
+
+  - id: L0_instructor_quality
+    type: experience
+    description: >
+      Instructors are knowledgeable, engaging, and responsive
+      to student questions and feedback.
+    proxy_indicators:
+      - metric: "instructor_rating"
+        target: ">= 4.2 / 5"
+        measurement_method: "Student evaluation survey"
+    priority: high
+
+  - id: L0_materials_quality
+    type: experience
+    description: >
+      Course materials are current, well-organized, accessible,
+      and aligned with learning objectives.
+    proxy_indicators:
+      - metric: "material_currency_months"
+        target: "<= 12 since last update"
+        measurement_method: "Content review audit"
+    priority: high
+
+  - id: L0_support_availability
+    type: experience
+    description: >
+      Students have access to help when stuck. Office hours,
+      forums, or mentoring available within reasonable timelines.
+    proxy_indicators:
+      - metric: "support_response_time_hours"
+        target: "<= 24"
+        measurement_method: "Support ticket or forum response tracking"
+    priority: high
+
+  - id: L0_career_relevance
+    type: experience
+    description: >
+      Skills and knowledge gained are applicable to real-world
+      professional contexts. Graduates report career benefit.
+    proxy_indicators:
+      - metric: "career_impact_score"
+        target: ">= 4 / 5"
+        measurement_method: "6-month post-completion survey"
+    priority: high
+
+  - id: L0_peer_learning
+    type: experience
+    description: >
+      Students learn from each other through structured collaboration,
+      discussion, and peer review.
+    proxy_indicators:
+      - metric: "collaboration_satisfaction"
+        target: ">= 3.5 / 5"
+        measurement_method: "Student evaluation survey"
+    priority: medium
+
+  # --- Constraint contracts ---
+
+  - id: L0_accreditation
+    type: constraint
+    source: "Accreditation body or regulatory authority"
+    description: >
+      Program meets accreditation requirements if applicable.
+      Credits or certifications are recognized by relevant bodies.
+    priority: critical
+
+  - id: L0_accessibility_education
+    type: constraint
+    source: "Disability discrimination law or accessibility regulations"
+    description: >
+      Learning materials and environments are accessible to
+      students with disabilities. Reasonable accommodations provided.
+    priority: critical
+
+  # --- Commitment contracts ---
+
+  - id: L0_certification_value
+    type: commitment
+    description: >
+      Certifications or credentials awarded are maintained as
+      meaningful signals. Standards are not diluted for throughput.
+    proxy_indicators:
+      - metric: "pass_rate_pct"
+        target: "60-85 (maintained range, not 100%)"
+        measurement_method: "Assessment results"
+    priority: high
+
+  - id: L0_curriculum_evolution
+    type: commitment
+    description: >
+      Curriculum is updated regularly based on industry developments,
+      student feedback, and outcome data.
+    proxy_indicators:
+      - metric: "curriculum_review_frequency_months"
+        target: "<= 6"
+        measurement_method: "Review log"
+    priority: medium
