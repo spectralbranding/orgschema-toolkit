@@ -172,7 +172,7 @@ orgschema-toolkit/
 | Project | Description |
 |:--------|:------------|
 | [orgschema-framework](https://github.com/spectralbranding/orgschema-framework) | Python validator + JSON Schema (`orgschema-validate` CLI) |
-| [orgschema-demo](https://github.com/spectralbranding/orgschema-demo) | Spectra Coffee reference implementation (26 YAML files, CI/CD) |
+| [orgschema-demo](https://github.com/spectralbranding/orgschema-demo) | Spectra Coffee reference implementation (25 YAML files, CI/CD) |
 | [sbt-framework](https://github.com/spectralbranding/sbt-framework) | Spectral Brand Theory toolkit (brand perception analysis) |
 
 ## Citation
