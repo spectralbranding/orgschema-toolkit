@@ -1,7 +1,7 @@
 # Organizational Schema Theory: Methodology Summary
 
 **Version**: 1.0
-**Full paper**: [SSRN Preprint](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6323456)
+**Full paper**: [Preprint (DOI)](https://doi.org/10.5281/zenodo.18946043)
 
 ---
 
@@ -101,5 +101,5 @@ SBT provides the perception model. Orgschema provides the operational specificat
 - Hevner, A.R. et al. (2004). Design Science in Information Systems Research. *MIS Quarterly*, 28(1), 75-105.
 - Liker, J.K. (2004). *The Toyota Way*. McGraw-Hill.
 - Ohno, T. (1988). *Toyota Production System*. Productivity Press.
-- Zharnikov, D. (2026a). Spectral Brand Theory. SSRN Working Paper 6318718.
-- Zharnikov, D. (2026b). The Organizational Schema Theory. SSRN Working Paper 6323456.
+- Zharnikov, D. (2026a). Spectral Brand Theory. [DOI: 10.5281/zenodo.18945912](https://doi.org/10.5281/zenodo.18945912).
+- Zharnikov, D. (2026b). The Organizational Schema Theory. [DOI: 10.5281/zenodo.18946043](https://doi.org/10.5281/zenodo.18946043).

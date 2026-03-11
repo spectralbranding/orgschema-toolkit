@@ -182,8 +182,9 @@ orgschema-toolkit/
   author  = {Zharnikov, Dmitry},
   title   = {The Organizational Schema Theory: Test-Driven Business Design},
   year    = {2026},
-  journal = {SSRN Working Paper},
-  url     = {https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6323456}
+  journal = {Zenodo},
+  doi     = {10.5281/zenodo.18946043},
+  url     = {https://doi.org/10.5281/zenodo.18946043}
 }
 ```
 
