@@ -1,5 +1,8 @@
-# Claude Code local settings
-.claude/
+# Secrets + environment
+.env
+.env.*
+*.env
+!.env.example
 
 # Claude decision traces
 .claude-decisions/
@@ -26,4 +29,15 @@ __pycache__/
 venv/
 
 # Linting
+.flake8
+
+# Fleet internal (public repo — nothing tracked)
+.claude/
+.claude-decisions/
+skills/
+.clinerules
+.cursorrules
+.cursorignore
+.rooignore
+.mcp.json
 .flake8

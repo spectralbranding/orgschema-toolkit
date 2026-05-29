@@ -1,8 +1,11 @@
+[![MIT License](https://img.shields.io/badge/Code-MIT-blue.svg)](LICENSE)
+[![CC-BY 4.0](https://img.shields.io/badge/Data-CC--BY_4.0-lightgrey.svg)](LICENSE-data)
+![Last Updated](https://img.shields.io/badge/updated-2026--05--29-success)
+
 # Organizational Schema Theory — Prompt Toolkit
 
 > Businesses are test suites. You are the architect.
 
-![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Toolkit v1.0](https://img.shields.io/badge/Toolkit-v1.0-green.svg)
 ![5 Industry Starters](https://img.shields.io/badge/Starters-5%20Industries-orange.svg)
 
@@ -192,6 +195,101 @@ orgschema-toolkit/
 
 **Dmitry Zharnikov** -- [spectralbranding.com](https://spectralbranding.com) | [orgschema.com](https://orgschema.com)
 
-## License
+---
 
-MIT -- see [LICENSE](LICENSE).
+## 1 | Getting Started
+
+This repository is a documentation + template + prompt toolkit. There is no software to install and no Python package to build — every artifact is a human- and LLM-readable Markdown or YAML file.
+
+To use the toolkit:
+
+1. Clone or download the repository.
+2. Open the prompt file for the module you want (see `prompts/`).
+3. Paste the prompt into any capable LLM (Claude, GPT, Gemini), then describe your business.
+4. Save the LLM's structured YAML output and feed it into the next module.
+
+Project anchor: a top-level `.here` file marks the repository root for relative-path resolution. No `pyproject.toml` ships because the repository contains no Python package; CI Python checks skip when `pyproject.toml` is absent.
+
+## 2 | Project Layout
+
+```
+orgschema-toolkit/
+├── prompts/                    8 LLM-ready module prompts
+├── templates/                  YAML output schemas (one per module)
+├── starters/                   Industry starter packs (5 sectors)
+├── docs/                       METHODOLOGY.md + GLOSSARY.md
+├── output/                     Standard split (empty here — toolkit has no pipeline)
+│   ├── figures/
+│   ├── tables/
+│   └── logs/
+├── CITATION.cff                Machine-readable citation
+├── LICENSE                     MIT (code)
+├── LICENSE-data                CC BY 4.0 (templates, prompts, docs)
+├── reproduce.sh                Standard-conformant stub (no pipeline)
+├── .here                       Project root anchor
+└── README.md
+```
+
+See the [Repository Structure](#repository-structure) section above for the per-file listing.
+
+## 3 | Quick Start
+
+The toolkit has no computational pipeline to reproduce; the standard-conformant orchestrator is a stub that announces that fact:
+
+```bash
+./reproduce.sh
+# OST toolkit — docs and templates; nothing to reproduce.
+# See https://github.com/spectralbranding/orgschema-papers for paper mirrors.
+```
+
+For the actual user workflow (LLM-driven business specification in ~40 minutes), see the [Quick Start](#quick-start) section above.
+
+For paper computational pipelines, see the per-paper mirrors under [orgschema-papers](https://github.com/spectralbranding/orgschema-papers).
+
+## 4 | Dependencies
+
+None. The toolkit ships only Markdown prompts, YAML templates, and documentation. A capable LLM (Claude, GPT, Gemini) is the only runtime requirement, and it is operated by the user outside this repository.
+
+The companion validator and reference implementation live in separate repositories:
+
+- [orgschema-framework](https://github.com/spectralbranding/orgschema-framework) — Python validator + JSON Schema (`orgschema-validate` CLI)
+- [orgschema-demo](https://github.com/spectralbranding/orgschema-demo) — Spectra Coffee reference implementation (25 YAML files, CI/CD)
+
+## 5 | Script Map
+
+Not applicable. This repository contains no executable scripts beyond `reproduce.sh` (a no-op stub). The toolkit's primary artifacts are prompts and templates, mapped per module in [The 8 Modules](#the-8-modules) table above.
+
+## 6 | Citation
+
+```bibtex
+@misc{zharnikov2026osttoolkit,
+  author  = {Zharnikov, Dmitry},
+  title   = {Organizational Schema Theory: AI Prompt Toolkit},
+  year    = {2026},
+  url     = {https://github.com/spectralbranding/orgschema-toolkit}
+}
+
+@article{zharnikov2026ost,
+  author  = {Zharnikov, Dmitry},
+  title   = {The Organizational Schema Theory: Test-Driven Business Design},
+  year    = {2026},
+  journal = {Zenodo},
+  doi     = {10.5281/zenodo.18946043},
+  url     = {https://doi.org/10.5281/zenodo.18946043}
+}
+```
+
+Machine-readable citation data lives in [`CITATION.cff`](CITATION.cff). GitHub renders the "Cite this repository" button from that file.
+
+## 7 | Licence
+
+Dual-licence discipline per the public-mirror standard:
+
+- **Code** — MIT, see [`LICENSE`](LICENSE).
+- **Data, templates, prompts, docs** — Creative Commons Attribution 4.0 International (CC BY 4.0), see [`LICENSE-data`](LICENSE-data).
+
+Attribution: Dmitry Zharnikov (2026). *Organizational Schema Theory: AI Prompt Toolkit.* Concept DOI [10.5281/zenodo.18946043](https://doi.org/10.5281/zenodo.18946043).
+
+---
+
+*Last updated: 2026-05-29*
