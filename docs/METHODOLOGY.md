@@ -76,7 +76,7 @@ Sharing a business means sharing its test suite. A new owner copies the contract
 
 ### Schema/Data Distinction
 
-The **schema** (what parameters exist and what to measure) is publishable. The **data** (specific parameter values) is the competitive moat. Toyota published the Toyota Production System methodology; they kept their specific parameters.
+The **schema** (what parameters exist and what to measure) is publishable. The **data** (specific parameter values) stays private. Toyota published the Toyota Production System methodology; they kept their specific parameters.
 
 ### Backward Traceability
 
