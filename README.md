@@ -127,7 +127,7 @@ These domains interact with operational specifications -- a sourcing requirement
 | Procedure | How it is achieved (the implementation) -- executor-specific |
 | Quality gate | Measurable parameter with min/max/target that a process must satisfy |
 | Forkability | Copy the test suite, rewrite the implementation for your context |
-| Schema vs Data | Schema (what to measure) is publishable; Data (values) is competitive moat |
+| Schema vs Data | Schema (what to measure) is publishable; Data (values) stays private |
 | Backward traceability | Every parameter traces to the L0 contract it serves |
 
 See [`docs/GLOSSARY.md`](docs/GLOSSARY.md) for the complete terminology reference.

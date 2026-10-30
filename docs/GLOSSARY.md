@@ -81,7 +81,7 @@ The eight perceptual dimensions from Spectral Brand Theory, used in L1 signal ma
 | Active executor | The currently selected executor profile for a procedure |
 | Forkability | The ability to copy a test suite and rewrite the implementation for a new context |
 | Schema | What parameters exist (publishable) |
-| Data | Specific parameter values (competitive moat) |
+| Data | Specific parameter values (the part that stays private) |
 | Backward traceability | Every parameter traces to the L0 contract it serves |
 | Orphan | A process, input, or supplier that does not trace to any L0 contract |
 | Muda | Waste -- operational elements that do not contribute to customer experience |
